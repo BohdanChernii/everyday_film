@@ -2,21 +2,27 @@ import React from 'react';
 
 import './Pagination.scss'
 import {useNavigate} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {moviesActions} from "../../redux";
 
-const Pagination = ({page, prevPage, nextPage}) => {
+const Pagination = ({queryPage}) => {
 
-  const navigate= useNavigate()
+  const {page} = useSelector(state => state.moviesReducer)
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   return (
     <div className={'pagination'}>
       <button className={'pagination__item prev'} onClick={async () => {
-        prevPage()
-        navigate(`movies/?page=${page-1}`)
-      }} disabled={page === 1}>Prev
+        dispatch(moviesActions.prevPage())
+        navigate(`movies/?page=${page - 1}`)
+      }} disabled={(page === 1) || (queryPage === 1)}>Prev
       </button>
-      <button  className={'pagination__item next'} onClick={() => {
-        nextPage()
-        navigate(`movies/?page=${page+1}`)
+      <button className={'pagination__item next'} onClick={() => {
+        dispatch(moviesActions.nextPage())
+        navigate(`movies/?page=${page + 1}`)
       }}>
         Next
       </button>

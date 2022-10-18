@@ -4,11 +4,12 @@ import Movies from "../../components/Movies/Movies";
 import Footer from "../../components/Footer/Footer";
 
 const MoviesPage = () => {
+
   return (
     <div>
-      <Header />
+
       <Movies/>
-      <Footer/>
+
     </div>
   );
 };

@@ -11,12 +11,12 @@ const initialState = {
 
 const getMovies = createAsyncThunk(
   'moviesSlice/getMovies',
-  async (number, {rejectedWithValue}) => {
+  async ({page}, {rejectedWithValue}) => {
     try {
-      const {data} = moviesService.changePage(number)
+      const {data} = await moviesService.changePage(page)
       return data
     } catch (e) {
-      rejectedWithValue(e.response?.data)
+      return rejectedWithValue(e.response?.data)
     }
   }
 )
@@ -26,8 +26,14 @@ const moviesSlice = createSlice({
   name: 'moviesSlice',
   initialState,
   reducers: {
-    nextPage: (state, actions) => state.page + 1,
-    prevPage: (state) => state.page - 1,
+    nextPage: (state, action) => {
+      state.page += 1
+    },
+    prevPage: (state, action) => {
+      state.page -= 1},
+    setPage:(state,action)=>{
+      state.page = action.payload
+    },
     setMovie: (state, action) => state.movie = action.payload
   },
   extraReducers: builder =>
@@ -42,12 +48,13 @@ const moviesSlice = createSlice({
     })
 })
 
-const {reducer: moviesReducer, actions: {nextPage, prevPage, setMovie}} = moviesSlice
+const {reducer: moviesReducer, actions: {nextPage, prevPage, setMovie, setPage}} = moviesSlice
 
 const moviesActions = {
   nextPage,
   prevPage,
   getMovies,
-  setMovie
+  setMovie,
+  setPage,
 }
-export {moviesActions,moviesSlice,moviesReducer}
+export {moviesActions, moviesSlice, moviesReducer}

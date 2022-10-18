@@ -3,17 +3,21 @@ import React, {useEffect, useState} from 'react';
 import {Rating} from 'react-simple-star-rating'
 
 import './Movie.scss'
+import {useNavigate} from "react-router";
+
+
 
 const Movie = ({movie, genres}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
-
   const badge = genres.filter(genre => genre_ids.includes(genre.id))
   badge.length = 2
 
-
+const navigate= useNavigate()
   return (
-    <div className={'movie'}>
+    <div className={'movie'} onClick={() => navigate('details', {state:movie})}>
+
       <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt="" className={'movie__poster'}/>
+
       <div className="movie__badge">
         {badge.map(item => (
           <p key={item.id} className="movie__badge-item">{item.name}</p>
@@ -34,6 +38,8 @@ const Movie = ({movie, genres}) => {
       </div>
     </div>
   );
+
 };
+
 
 export default Movie;
