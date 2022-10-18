@@ -1,0 +1,50 @@
+.header {
+  height: 100px;
+  padding: 0 8%;
+  background-color: #151419;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  box-shadow: 10px 10px 10px 4px rgba(0, 0, 0, 0.2);
+
+  &__logo {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #324EE0;
+
+    &-logo {
+      width: 80px;
+      color: white;
+      font-size: 30px;
+      font-weight: 900;
+      text-align: center;
+    }
+  }
+
+
+
+  &__form {
+    line-height: 20px;
+    background: none;
+    margin-left: auto;
+    &-input {
+      font-size: 17px;
+      background: none;
+      border: none;
+      color: #FDC62E;
+    }
+    &-input:focus {
+      outline: none;
+    }
+
+    &-button {
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: #FDC62E;
+    }
+  }
+}
