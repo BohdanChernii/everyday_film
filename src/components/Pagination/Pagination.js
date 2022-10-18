@@ -17,12 +17,12 @@ const Pagination = ({queryPage}) => {
     <div className={'pagination'}>
       <button className={'pagination__item prev'} onClick={async () => {
         dispatch(moviesActions.prevPage())
-        navigate(`movies/?page=${page - 1}`)
+        navigate(`?page=${page - 1}`)
       }} disabled={(page === 1) || (queryPage === 1)}>Prev
       </button>
       <button className={'pagination__item next'} onClick={() => {
         dispatch(moviesActions.nextPage())
-        navigate(`movies/?page=${page + 1}`)
+        navigate(`?page=${page + 1}`)
       }}>
         Next
       </button>
