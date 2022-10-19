@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {genresAction} from "../../redux";
 
@@ -12,6 +12,7 @@ const Genres = () => {
 
   const [genres, setGenres] = useState([])
   const [collapse, setCollapse] = useState(false)
+  const {genre} = useSelector(state => state.genresReducer)
 
   const dispatch = useDispatch()
 
@@ -19,6 +20,7 @@ const Genres = () => {
     dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
   }, [])
 
+  console.log(genre);
   return (
     <div className={'genres'}>
       <div className="genres__title">
@@ -35,8 +37,23 @@ const Genres = () => {
       </div>
       {collapse && <div className="genres__container">
         {genres.map(genre => (
-          <button className="genres__container-btn">{genre.name}</button>
+          <button
+            key={genre.id}
+            className="genres__container-btn"
+            onClick={() => {
+              dispatch(genresAction.getGenre(genre))
+            }}>
+            {genre.name}
+          </button>
         ))}
+        <div className="genres__container-reset">
+          <button
+            className="genres__container-btn"
+            onClick={() => {
+            dispatch(genresAction.getGenre(null))
+          }}>Reset</button>
+        </div>
+
       </div>}
     </div>
   );

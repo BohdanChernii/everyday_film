@@ -4,8 +4,6 @@ import './Pagination.scss'
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {moviesActions} from "../../redux";
-import {useSearchParams} from "react-router-dom";
-
 
 const Pagination = ({queryPage}) => {
 
@@ -14,8 +12,6 @@ const Pagination = ({queryPage}) => {
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
-
-  console.log(queryPage);
 
   return (
     <div className={'pagination'}>

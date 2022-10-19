@@ -24,7 +24,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-
     &-btn {
       font-size: 20px;
       margin: auto;
@@ -32,6 +31,15 @@
       background-color: transparent;
       border: none;
       cursor: pointer;
+    }
+    &-reset{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      button{
+        width: 25%;
+        font-size: 30px;
+      }
     }
   }
 }

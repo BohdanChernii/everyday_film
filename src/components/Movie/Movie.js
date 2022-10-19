@@ -4,19 +4,22 @@ import {Rating} from 'react-simple-star-rating'
 
 import './Movie.scss'
 import {useNavigate} from "react-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {genresAction} from "../../redux";
 
 
-const Movie = ({movie, genres}) => {
+const Movie = ({movie}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
+  const [genres, setGenres] = useState([])
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
+  }, [])
+
   const badge = genres.filter(genre => genre_ids.includes(genre.id)).map(item => item.name)
-
-  const {filterParam} = useSelector(state => state.moviesReducer)
-
   const navigate = useNavigate()
-
   badge.length = 2
-
 
   return (
     <div className={'movie'} onClick={() => navigate('details', {state: movie})}>
@@ -24,8 +27,8 @@ const Movie = ({movie, genres}) => {
       <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt="" className={'movie__poster'}/>
 
       <div className="movie__badge">
-        {badge.map(item => (
-          <p key={item.id} className="movie__badge-item">{item}</p>
+        {badge.map((item,index) => (
+          <p key={index} className="movie__badge-item">{item}</p>
         ))}
       </div>
 

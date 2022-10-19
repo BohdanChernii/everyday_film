@@ -3,7 +3,7 @@
   margin: auto;
   display: flex;
   justify-content: space-evenly;
-margin-top: 20px;
+  margin-top: 20px;
 
   &__item {
     width: 160px;
@@ -13,10 +13,10 @@ margin-top: 20px;
     background: #FDC62E;
     font-weight: 900;
     border-radius: 5px;
-    cursor:pointer
+    cursor: pointer
   }
 
-  &__item:hover{
+  &__item:hover {
     transition: 0.8s;
     color: #dcdeff
   }
