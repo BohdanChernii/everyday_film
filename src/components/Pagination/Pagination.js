@@ -4,6 +4,7 @@ import './Pagination.scss'
 import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {moviesActions} from "../../redux";
+import {useSearchParams} from "react-router-dom";
 
 
 const Pagination = ({queryPage}) => {
@@ -14,12 +15,14 @@ const Pagination = ({queryPage}) => {
 
   const navigate = useNavigate()
 
+  console.log(queryPage);
+
   return (
     <div className={'pagination'}>
       <button className={'pagination__item prev'} onClick={async () => {
         dispatch(moviesActions.prevPage())
         navigate(`?page=${page - 1}`)
-      }} disabled={(queryPage === 1) || (queryPage === null) || (queryPage === 1)}>Prev
+      }} disabled={queryPage <= 1}>Prev
       </button>
       <button className={'pagination__item next'} onClick={() => {
         dispatch(moviesActions.nextPage())
