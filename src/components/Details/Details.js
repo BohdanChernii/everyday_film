@@ -15,12 +15,12 @@ const Details = () => {
     genre_ids, overview, original_language, original_title, popularity, title, vote_average, vote_count, poster_path
   } = state
   console.log(state);
-  // useEffect(() => {
-  //   dispatch(genresAction.getGenres())
-  // }, [])
+  useEffect(() => {
+    dispatch(genresAction.getGenres())
+  }, [])
 
-  // const badge = genres.filter(genre => genre_ids.includes(genre.id))
-  // badge.length = 2
+  const movieGenres = genres?.genres?.filter(genre => genre_ids.includes(genre.id))
+  console.log(movieGenres);
 
   return (
     <div className={'details'}>
@@ -43,6 +43,9 @@ const Details = () => {
         <h1 className="details__right-title">{title}</h1>
         <h3 className="details__right-subtitle">Original: {original_title}</h3>
         <p className="details__right-overview">{overview}</p>
+        <div className="details__right-genres">
+          {movieGenres?.map(genre=>(<p key={genre.id}>{genre.name}</p>))}
+        </div>
         <p className="details__right-popularity">Saw: {popularity}</p>
       </div>
     </div>

@@ -19,7 +19,7 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryPage = searchParams.get("page")
 
-  const {page, loading} = useSelector(state => state.moviesReducer)
+  const {page, loading, filterParam} = useSelector(state => state.moviesReducer)
   const {genres} = useSelector(state => state.genresReducer)
   const dispatch = useDispatch()
 
@@ -28,9 +28,17 @@ const Movies = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(moviesActions.getMovies({page: queryPage})).then(({payload}) => setMovies(payload.results))
     moviesActions.setPage(queryPage)
-  }, [page])
+    dispatch(moviesActions.getMovies({page: queryPage}))
+      .then(({payload}) => setMovies(payload.results))
+  }, [page,queryPage])
+
+
+  useEffect(() => {
+    setMovies(movies.filter(movie => movie.title.includes(filterParam) ))
+  }, [filterParam])
+
+  console.log(filterParam);
 
   return (
     <>

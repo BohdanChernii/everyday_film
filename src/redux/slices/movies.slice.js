@@ -2,11 +2,11 @@ import {createAsyncThunk, createSlice, isRejectedWithValue} from "@reduxjs/toolk
 import {moviesService} from "../../service/movies.service";
 
 const initialState = {
-  movie: null,
   page: 1,
   movies: [],
   loading: false,
   error: null,
+  filterParam: '',
 }
 
 const getMovies = createAsyncThunk(
@@ -21,7 +21,6 @@ const getMovies = createAsyncThunk(
   }
 )
 
-
 const moviesSlice = createSlice({
   name: 'moviesSlice',
   initialState,
@@ -30,11 +29,14 @@ const moviesSlice = createSlice({
       state.page += 1
     },
     prevPage: (state, action) => {
-      state.page -= 1},
-    setPage:(state,action)=>{
+      state.page -= 1
+    },
+    setPage: (state, action) => {
       state.page = action.payload
     },
-    setMovie: (state, action) => state.movie = action.payload
+    setFilterParam: (state, action) => {
+      state.filterParam = action.payload
+    }
   },
   extraReducers: builder =>
     builder.addCase(getMovies.fulfilled, (state, action) => {
@@ -48,13 +50,13 @@ const moviesSlice = createSlice({
     })
 })
 
-const {reducer: moviesReducer, actions: {nextPage, prevPage, setMovie, setPage}} = moviesSlice
+const {reducer: moviesReducer, actions: {nextPage, prevPage, setPage, setFilterParam}} = moviesSlice
 
 const moviesActions = {
   nextPage,
   prevPage,
   getMovies,
-  setMovie,
   setPage,
+  setFilterParam,
 }
 export {moviesActions, moviesSlice, moviesReducer}

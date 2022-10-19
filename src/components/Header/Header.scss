@@ -30,11 +30,13 @@
     line-height: 20px;
     background: none;
     margin-left: auto;
+    position: relative;
     &-input {
       font-size: 17px;
       background: none;
       border: none;
       color: #FDC62E;
+
     }
     &-input:focus {
       outline: none;
@@ -45,6 +47,8 @@
       background: none;
       border: none;
       color: #FDC62E;
+      position: absolute;
+      right: -22px;
     }
   }
 }
