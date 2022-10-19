@@ -11,7 +11,6 @@ import {useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {genresAction, moviesActions} from "../../redux";
-import {useLocation, useNavigate} from "react-router";
 
 const Movies = () => {
   const [movies, setMovies] = useState([])
@@ -38,7 +37,7 @@ const Movies = () => {
     setMovies(movies.filter(movie => movie.title.includes(filterParam) ))
   }, [filterParam])
 
-  console.log(filterParam);
+
 
   return (
     <>
@@ -49,7 +48,6 @@ const Movies = () => {
           genres={genres?.genres}/>))}
       </div>
       <Pagination queryPage={queryPage}/>
-
     </>
   );
 };

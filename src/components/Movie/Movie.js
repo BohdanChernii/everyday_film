@@ -11,14 +11,12 @@ const Movie = ({movie, genres}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
   const badge = genres.filter(genre => genre_ids.includes(genre.id)).map(item => item.name)
 
-
   const {filterParam} = useSelector(state => state.moviesReducer)
-  console.log(badge);
 
   const navigate = useNavigate()
 
   badge.length = 2
-  console.log(filterParam);
+
 
   return (
     <div className={'movie'} onClick={() => navigate('details', {state: movie})}>
