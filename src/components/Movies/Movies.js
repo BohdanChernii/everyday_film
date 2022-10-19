@@ -31,7 +31,7 @@ const Movies = () => {
   }, [page,queryPage])
 
   useEffect(() => {
-    setMovies(movies.filter(movie => movie.title.includes(filterParam)))
+
     if(genre){
       setMovies(movies.filter(movie => movie.genre_ids.includes(genre.id)))
     }else{
@@ -39,8 +39,10 @@ const Movies = () => {
         .then(({payload}) => setMovies(payload.results))
     }
 
-  }, [filterParam,genre])
-
+  }, [genre])
+  useEffect(() => {
+    setMovies(movies.filter(movie => movie.title.includes(filterParam)))
+  },[filterParam])
   return (
     <>
       {loading && <h1>Loading......</h1>}

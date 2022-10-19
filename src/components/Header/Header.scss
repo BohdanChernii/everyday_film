@@ -24,6 +24,11 @@
     }
   }
 
+  &__theme{
+    font-size: 25px;
+    color: #FDC62E;
+    margin-left: auto;
+  }
 
 
   &__form {
@@ -36,7 +41,7 @@
       background: none;
       border: none;
       color: #FDC62E;
-
+width: 150px;
     }
     &-input:focus {
       outline: none;

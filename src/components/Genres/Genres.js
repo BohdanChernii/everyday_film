@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {genresAction} from "../../redux";
@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
 import './Genres.scss'
+import {ThemeContext} from "../../index";
 
 const Genres = () => {
 
@@ -15,6 +16,7 @@ const Genres = () => {
   const {genre} = useSelector(state => state.genresReducer)
 
   const dispatch = useDispatch()
+  const {color} = useSelector(state => state.themeReducer)
 
   useEffect(() => {
     dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
@@ -38,6 +40,7 @@ const Genres = () => {
       {collapse && <div className="genres__container">
         {genres.map(genre => (
           <button
+            style={{color: color}}
             key={genre.id}
             className="genres__container-btn"
             onClick={() => {
@@ -48,10 +51,12 @@ const Genres = () => {
         ))}
         <div className="genres__container-reset">
           <button
+            style={{color: color}}
             className="genres__container-btn"
             onClick={() => {
-            dispatch(genresAction.getGenre(null))
-          }}>Reset</button>
+              dispatch(genresAction.getGenre(null))
+            }}>Reset
+          </button>
         </div>
 
       </div>}
