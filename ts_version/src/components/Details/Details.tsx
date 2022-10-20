@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
 import {useLocation, useNavigate} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+
 import {genresAction} from "../../redux";
 import {Rating} from "react-simple-star-rating";
 
 import './Details.scss'
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {IGenre} from "../../interfaces";
 
 const Details = () => {
   const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {state} = location
 
-  const {genres} = useSelector(state => state.genresReducer)
-  const {page} = useSelector(state=>state.moviesReducer)
+  const {genres} = useAppSelector(state => state.genresReducer)
+  const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
     genre_ids, overview, original_language, original_title, popularity, title, vote_average, vote_count, poster_path
@@ -22,7 +24,8 @@ const Details = () => {
     dispatch(genresAction.getGenres())
   }, [])
 
-  const movieGenres = genres?.genres?.filter(genre => genre_ids.includes(genre.id))
+  // @ts-ignore
+  const movieGenres: IGenre[] = genres?.genres?.filter((genre:IGenre) => genre_ids.includes(genre.id))
 
   const navigate = useNavigate()
   return (
@@ -60,4 +63,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export {Details};

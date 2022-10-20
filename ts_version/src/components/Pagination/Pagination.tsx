@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import './Pagination.scss'
 import {useNavigate} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
 import {moviesActions} from "../../redux";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
-const Pagination = ({queryPage}) => {
+interface IProps {
+  queryPage: number | string | null
+}
 
-  const {page} = useSelector(state => state.moviesReducer)
+const Pagination: FC<IProps> = ({queryPage}) => {
 
-  const dispatch = useDispatch()
+  const {page} = useAppSelector(state => state.moviesReducer)
+
+  const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
 
@@ -18,7 +22,8 @@ const Pagination = ({queryPage}) => {
       <button className={'pagination__item prev'} onClick={async () => {
         dispatch(moviesActions.prevPage())
         navigate(`?page=${page - 1}`)
-      }} disabled={queryPage <= 1}>Prev
+      }} disabled={
+        (queryPage !== null) && queryPage <= 1}>Prev
       </button>
       <button className={'pagination__item next'} onClick={() => {
         dispatch(moviesActions.nextPage())
@@ -30,4 +35,4 @@ const Pagination = ({queryPage}) => {
   );
 };
 
-export default Pagination;
+export {Pagination};

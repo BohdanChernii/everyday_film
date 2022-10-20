@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
 import {Rating} from 'react-simple-star-rating'
 
 import './Movie.scss'
 import {useNavigate} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
 import {genresAction} from "../../redux";
+import {IGenre, IMovie} from "../../interfaces";
+import {useAppDispatch} from "../../hooks";
 
 
-const Movie = ({movie}) => {
+type IProps ={
+  movie:IMovie
+}
+
+const Movie:FC<IProps> = ({movie}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
-  const [genres, setGenres] = useState([])
-  const dispatch = useDispatch()
+  const [genres, setGenres] = useState<IGenre[]>([])
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
   }, [])
 
@@ -50,4 +56,4 @@ const Movie = ({movie}) => {
 };
 
 
-export default Movie;
+export {Movie};

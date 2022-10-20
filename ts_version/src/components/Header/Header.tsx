@@ -1,23 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass, faToggleOff, faToggleOn} from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
 import {useForm} from "react-hook-form";
-import {useDispatch, useSelector} from "react-redux";
-import {moviesActions, themeAction} from "../../redux";
+import {moviesActions} from "../../redux";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {themeAction} from "../../redux/slices/theme.slice";
 
-const Header = () => {
-  const [theme, setTheme] = useState(false)
+interface IForm{
+  filter:string
+}
 
-  const {page, movies, filterParam} = useSelector(state => state.moviesReducer)
+const Header: FC = () => {
+  const [theme, setTheme] = useState<boolean>(false)
+
+  const {page, movies, filterParam} = useAppSelector(state => state.moviesReducer)
 
   const {register, handleSubmit, reset} = useForm({defaultValues: {filter: ''}})
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
 
-  const submit = async (data) => {
+  const submit = async (data:IForm) => {
     await dispatch(moviesActions.setFilterParam(data.filter))
     reset()
   }
@@ -55,4 +60,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export {Header};

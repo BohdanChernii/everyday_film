@@ -1,52 +1,54 @@
-import React, {useState, useEffect} from 'react';
-import Movie from "../Movie/Movie";
+import React, {useState, useEffect, FC} from 'react';
 
 import './Movies.scss'
 
-import Pagination from "../Pagination/Pagination";
 
 
 import {useSearchParams} from "react-router-dom";
 
-import {useDispatch, useSelector} from "react-redux";
-
 import {genresAction, moviesActions} from "../../redux";
+import {IMovie} from "../../interfaces";
+import {Movie} from "../Movie/Movie";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {Pagination} from "../Pagination/Pagination";
 
-const Movies = () => {
-  const [movies, setMovies] = useState([])
-  const {page, loading, filterParam} = useSelector(state => state.moviesReducer)
+const Movies: FC = () => {
+  const [movies, setMovies] = useState<IMovie[]>([])
+  const {page, loading, filterParam} = useAppSelector(state => state.moviesReducer)
 
-  const {genre} = useSelector(state => state.genresReducer)
-
+  const {genre} = useAppSelector(state => state.genresReducer)
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryPage = searchParams.get("page")
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     moviesActions.setPage(queryPage)
     dispatch(moviesActions.getMovies({page: queryPage}))
+      // @ts-ignore
       .then(({payload}) => setMovies(payload.results))
   }, [page, queryPage])
 
   useEffect(() => {
-
     if (genre) {
       setMovies(movies.filter(movie => movie.genre_ids.includes(genre.id)))
     } else {
       dispatch(moviesActions.getMovies({page: queryPage}))
+        // @ts-ignore
         .then(({payload}) => setMovies(payload.results))
     }
-
   }, [genre])
+
   useEffect(() => {
     setMovies(movies.filter(movie => movie.title.includes(filterParam)))
     if (filterParam === '') {
       dispatch(moviesActions.getMovies({page: queryPage}))
+        // @ts-ignore
         .then(({payload}) => setMovies(payload.results))
     }
   }, [filterParam])
+
   return (
     <>
       {loading && <h1>Loading......</h1>}
@@ -67,4 +69,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export {Movies};
