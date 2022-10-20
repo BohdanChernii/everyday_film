@@ -22,12 +22,15 @@ const Movie = ({movie}) => {
   badge.length = 2
 
   return (
-    <div className={'movie'} onClick={() => navigate('details', {state: movie})}>
+    <div className={'movie'}>
 
-      <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt="" className={'movie__poster'}/>
+      <img
+        onClick={() => navigate('details', {state: movie})}
+        src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt="" className={'movie__poster'}
+      />
 
       <div className="movie__badge">
-        {badge.map((item,index) => (
+        {badge.map((item, index) => (
           <p key={index} className="movie__badge-item">{item}</p>
         ))}
       </div>
