@@ -22,7 +22,6 @@ const Genres = () => {
     dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
   }, [])
 
-  console.log(genre);
   return (
     <div className={'genres'}>
       <div className="genres__title">

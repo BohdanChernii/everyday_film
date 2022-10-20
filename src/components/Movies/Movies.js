@@ -28,13 +28,13 @@ const Movies = () => {
     moviesActions.setPage(queryPage)
     dispatch(moviesActions.getMovies({page: queryPage}))
       .then(({payload}) => setMovies(payload.results))
-  }, [page,queryPage])
+  }, [page, queryPage])
 
   useEffect(() => {
 
-    if(genre){
+    if (genre) {
       setMovies(movies.filter(movie => movie.genre_ids.includes(genre.id)))
-    }else{
+    } else {
       dispatch(moviesActions.getMovies({page: queryPage}))
         .then(({payload}) => setMovies(payload.results))
     }
@@ -42,7 +42,11 @@ const Movies = () => {
   }, [genre])
   useEffect(() => {
     setMovies(movies.filter(movie => movie.title.includes(filterParam)))
-  },[filterParam])
+    if (filterParam === '') {
+      dispatch(moviesActions.getMovies({page: queryPage}))
+        .then(({payload}) => setMovies(payload.results))
+    }
+  }, [filterParam])
   return (
     <>
       {loading && <h1>Loading......</h1>}
@@ -50,6 +54,14 @@ const Movies = () => {
         {movies.map(movie => (<Movie
           key={movie.id} movie={movie}/>))}
       </div>
+      {filterParam !== '' &&
+        <div className={'movies__reset'}>
+          <button
+            onClick={() => dispatch(moviesActions.setFilterParam(''))}>
+            Go to movies
+          </button>
+        </div>
+       }
       <Pagination queryPage={queryPage}/>
     </>
   );

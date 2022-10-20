@@ -1,14 +1,11 @@
 import React from 'react';
 
-import {useNavigate} from "react-router";
-
 import logo from '../../images/logo.png'
 import instagram from '../../images/instagram.svg'
 import telegram from '../../images/telegram.svg'
 import linkedin from '../../images/linkedin.svg'
 
 import './Footer.scss'
-
 
 const Footer = () => {
 
