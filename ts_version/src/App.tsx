@@ -9,8 +9,8 @@ import {DetailsPage, MoviesPage} from "./pages";
 const App: FC = () => {
   const {background, color} = useAppSelector(state => state.themeReducer)
   return (
-    <div className="App">
-      <div className="page" style={{color:color,background:background}}>
+    <div className="App" style={{color:color,background:background}}>
+      <div className="page">
         <Routes>
           <Route  path={'/'} element={<MainLayout/>}>
             <Route index element={<Navigate to={'/movies'}/>}/>
