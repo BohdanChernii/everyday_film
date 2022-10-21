@@ -35,3 +35,15 @@
     }
   }
 }
+
+@media screen and (max-width: 443px) {
+  .movie {
+    height: 680px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movie {
+    height: 650px;
+  }
+}
