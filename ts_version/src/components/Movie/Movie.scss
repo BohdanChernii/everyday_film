@@ -1,6 +1,6 @@
 .movie {
   width: 390px;
-  height: 700px;
+  height: 760px;
   position: relative;
   overflow: hidden;
 
@@ -23,7 +23,9 @@
   &__info {
     margin-top: 10px;
 
-    &-start {
+    &-star {
+      position: absolute;
+      bottom: 0;
       margin-top: 10px;
     }
 

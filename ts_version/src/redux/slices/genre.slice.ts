@@ -20,14 +20,14 @@ const initialState: IGenresState<IGenre> = {
 
 const getGenres = createAsyncThunk<IGenre[], void>(
   'genresSlice/getGenres',
-  // @ts-ignore
-  async (_, {rejectedWithValue}) => {
+
+  async (_, {rejectWithValue}) => {
     try {
       const {data} = await genresService.get()
       return data
     } catch (e) {
       const err = e as AxiosError
-      return rejectedWithValue(err.response?.data)
+      return rejectWithValue(err.response?.data)
     }
   }
 )

@@ -6,7 +6,7 @@ import {moviesActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 
 interface IProps {
-  queryPage: number | string | null
+  queryPage: string | null
 }
 
 const Pagination: FC<IProps> = ({queryPage}) => {
@@ -23,7 +23,7 @@ const Pagination: FC<IProps> = ({queryPage}) => {
         dispatch(moviesActions.prevPage())
         navigate(`?page=${page - 1}`)
       }} disabled={
-        (queryPage !== null) && queryPage <= 1}>Prev
+        (queryPage === null) || (queryPage === '1')}>Prev
       </button>
       <button className={'pagination__item next'} onClick={() => {
         dispatch(moviesActions.nextPage())
