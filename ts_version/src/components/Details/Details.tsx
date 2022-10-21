@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router";
 
 import {genresAction} from "../../redux";
@@ -9,11 +9,11 @@ import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
 import {IGenre, IMovie} from "../../interfaces";
 
 const Details = () => {
+  const [genres, setGenres] = useState<IGenre[]>([])
   const {state} = useAppLocation<IMovie>()
   const dispatch = useAppDispatch()
 
-
-  const {genres} = useAppSelector(state => state.genresReducer.genres)
+  // const {genres} = useAppSelector(state => state.genresReducer.genres)
   const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
@@ -21,9 +21,10 @@ const Details = () => {
   } = state
 
   useEffect(() => {
-    dispatch(genresAction.getGenres())
+    // @ts-ignore
+    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
   }, [])
-
+  console.log(genres);
   const movieGenres = genres.filter((genre: IGenre) => genre_ids.includes(genre.id))
 
   const navigate = useNavigate()

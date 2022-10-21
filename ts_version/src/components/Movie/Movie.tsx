@@ -39,7 +39,7 @@ const Movie:FC<IProps> = ({movie}) => {
       </div>
 
       <div className="movie__info">
-        <p className={'movie__info-title'}>{title}</p>
+        <h2 className={'movie__info-title'}>{title}</h2>
         <p className={'movie__info-date'}>Release Date: {release_date}</p>
         <p className={'movie__info-rating'}>Rating: {vote_average}</p>
         <Rating
