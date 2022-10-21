@@ -6,13 +6,17 @@ import {IGenre} from "../../interfaces";
 
 
 interface IGenresState<IGenre> {
-  genres: IGenre[]
+  genres: {
+    genres:IGenre[]
+}
   genre: IGenre | null
   loading: boolean
 }
 
 const initialState: IGenresState<IGenre> = {
-  genres: [],
+  genres: {
+    genres:[],
+  },
   genre: null,
   loading: false,
 }
@@ -43,7 +47,7 @@ const genresSlice = createSlice({
 
     extraReducers: builder =>
       builder.addCase(getGenres.fulfilled, (state, action) => {
-        state.genres = action.payload
+        state.genres.genres = action.payload
         state.loading = false
       })
         .addCase(getGenres.pending, (state, action) => {

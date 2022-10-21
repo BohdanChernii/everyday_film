@@ -20,7 +20,7 @@ const Genres = () => {
 
   useEffect(() => {
     // @ts-ignore
-    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
+    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres.genres))
   }, [])
 
   return (

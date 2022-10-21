@@ -5,11 +5,11 @@ import {genresAction} from "../../redux";
 import {Rating} from "react-simple-star-rating";
 
 import './Details.scss'
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {IGenre} from "../../interfaces";
+import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
+import { IGenre} from "../../interfaces";
 
 const Details = () => {
-  const location = useLocation()
+  const location = useAppLocation()
   const dispatch = useAppDispatch()
   const {state} = location
 
@@ -24,8 +24,7 @@ const Details = () => {
     dispatch(genresAction.getGenres())
   }, [])
 
-  // @ts-ignore
-  const movieGenres: IGenre[] = genres?.genres?.filter((genre:IGenre) => genre_ids.includes(genre.id))
+  const movieGenres = genres?.genres?.filter((genre:IGenre) => genre_ids.includes(genre.id))
 
   const navigate = useNavigate()
   return (
