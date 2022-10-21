@@ -6,14 +6,14 @@ import {Rating} from "react-simple-star-rating";
 
 import './Details.scss'
 import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
-import { IGenre} from "../../interfaces";
+import {IGenre, IMovie} from "../../interfaces";
 
 const Details = () => {
-  const location = useAppLocation()
+  const {state} = useAppLocation<IMovie>()
   const dispatch = useAppDispatch()
-  const {state} = location
 
-  const {genres} = useAppSelector(state => state.genresReducer)
+
+  const {genres} = useAppSelector(state => state.genresReducer.genres)
   const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
@@ -24,7 +24,7 @@ const Details = () => {
     dispatch(genresAction.getGenres())
   }, [])
 
-  const movieGenres = genres?.genres?.filter((genre:IGenre) => genre_ids.includes(genre.id))
+  const movieGenres = genres.filter((genre: IGenre) => genre_ids.includes(genre.id))
 
   const navigate = useNavigate()
   return (

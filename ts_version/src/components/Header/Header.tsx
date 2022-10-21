@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faMagnifyingGlass, faToggleOff, faToggleOn} from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss'
-import {useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {moviesActions} from "../../redux";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {themeAction} from "../../redux/slices/theme.slice";
@@ -22,7 +22,7 @@ const Header: FC = () => {
   const dispatch = useAppDispatch()
 
 
-  const submit = async (data:IForm) => {
+  const submit:SubmitHandler<IForm> = async (data) => {
     await dispatch(moviesActions.setFilterParam(data.filter))
     reset()
   }
