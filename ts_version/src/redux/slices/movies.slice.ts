@@ -23,14 +23,13 @@ const initialState: IState<IMovie> = {
 
 const getMovies = createAsyncThunk<IMovie[], IGet>(
   'moviesSlice/getMovies',
-  // @ts-ignore
-  async ({page}, {rejectedWithValue}) => {
+  async ({page}, {rejectWithValue}) => {
     try {
       const {data} = await moviesService.changePage(page)
       return data
     } catch (e) {
       const err = e as AxiosError
-      return rejectedWithValue(err.response?.data)
+      return rejectWithValue(err.response?.data)
     }
   }
 )
