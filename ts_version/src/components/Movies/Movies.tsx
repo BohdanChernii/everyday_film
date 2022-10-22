@@ -51,7 +51,7 @@ const Movies: FC = () => {
 
   return (
     <>
-      {loading && <h1>Loading......</h1>}
+      {loading && <div className={'loader'}></div>}
       <div className={'movies'}>
         {movies.map(movie => (<Movie
           key={movie.id} movie={movie}/>))}
