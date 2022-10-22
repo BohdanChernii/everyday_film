@@ -16,18 +16,30 @@ const Pagination: FC<IProps> = ({queryPage}) => {
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
-
+  console.log(queryPage);
   return (
     <div className={'pagination'}>
       <button className={'pagination__item prev'} onClick={async () => {
         dispatch(moviesActions.prevPage())
-        navigate(`?page=${page - 1}`)
+
+        if (queryPage !== null) {
+          navigate(`?page=${+queryPage - 1}`)
+        }
+
       }} disabled={
-        (queryPage === null) || (queryPage === '1')}>Prev
+        (queryPage === null) || (queryPage === '1')
+      }>Prev
       </button>
       <button className={'pagination__item next'} onClick={() => {
+
         dispatch(moviesActions.nextPage())
-        navigate(`?page=${page + 1}`)
+
+        if (queryPage !== null) {
+          navigate(`?page=${+queryPage + 1}`)
+        } else if(page === 1){
+          navigate(`?page=${page + 1}`)
+        }
+
       }}>
         Next
       </button>
