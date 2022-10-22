@@ -1,16 +1,18 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {genresAction} from "../../redux";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
-import './Genres.scss'
 import {useAppDispatch, useAppSelector} from "../../hooks";
+
 import {IGenre} from "../../interfaces";
 
-const Genres = () => {
+import './Genres.scss'
 
+const Genres = () => {
   const [genres, setGenres] = useState<IGenre[]>([])
   const [collapse, setCollapse] = useState(false)
   const {genre} = useAppSelector(state => state.genresReducer)
@@ -24,6 +26,7 @@ const Genres = () => {
   }, [])
 
   return (
+
     <div className={'genres'}>
       <div className="genres__title">
         <h1 className={'genres__title-title'}>Choose genre </h1>

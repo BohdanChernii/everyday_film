@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, Dispatch} from "@reduxjs/toolkit";
 
 import {genresService} from "../../service";
 import {AxiosError} from "axios";
@@ -7,15 +7,15 @@ import {IGenre} from "../../interfaces";
 
 interface IGenresState<IGenre> {
   genres: {
-    genres:IGenre[]
-}
+    genres: IGenre[]
+  }
   genre: IGenre | null
   loading: boolean
 }
 
 const initialState: IGenresState<IGenre> = {
   genres: {
-    genres:[],
+    genres: [],
   },
   genre: null,
   loading: false,
@@ -46,12 +46,16 @@ const genresSlice = createSlice({
     },
 
     extraReducers: builder =>
-      builder.addCase(getGenres.fulfilled, (state, action) => {
-        state.genres.genres = action.payload
-        state.loading = false
-      })
-        .addCase(getGenres.pending, (state, action) => {
+      builder
+        .addCase(getGenres.fulfilled, (state, action) => {
+          state.genres.genres = action.payload
+          state.loading = false
+        })
+        .addCase(getGenres.pending, (state) => {
           state.loading = true
+        })
+        .addCase(getGenres.rejected, (state) => {
+          state.loading = false
         })
   }
 )

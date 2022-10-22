@@ -2,18 +2,21 @@ import React, {FC, useEffect, useState} from 'react';
 
 import {Rating} from 'react-simple-star-rating'
 
-import './Movie.scss'
 import {useNavigate} from "react-router";
+
 import {genresAction} from "../../redux";
+
 import {IGenre, IMovie} from "../../interfaces";
+
 import {useAppDispatch} from "../../hooks";
 
+import './Movie.scss'
 
-type IProps ={
-  movie:IMovie
+type IProps = {
+  movie: IMovie
 }
 
-const Movie:FC<IProps> = ({movie}) => {
+const Movie: FC<IProps> = ({movie}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
   const [genres, setGenres] = useState<IGenre[]>([])
   const dispatch = useAppDispatch()
@@ -28,9 +31,13 @@ const Movie:FC<IProps> = ({movie}) => {
   badge.length = 2
 
   return (
-    <div className={'movie'} onClick={() => navigate('details', {state: movie})}>
+    <div className={'movie'}>
 
-      <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt="" className={'movie__poster'}/>
+      <img className={'movie__poster'}
+           src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+           alt="Poster"
+           onClick={() => navigate('details', {state: movie})}
+      />
 
       <div className="movie__badge">
         {badge.map((item, index) => (
@@ -50,10 +57,10 @@ const Movie:FC<IProps> = ({movie}) => {
           size={20}
         />
       </div>
+
     </div>
   );
 
 };
-
 
 export {Movie};

@@ -8,7 +8,6 @@ import linkedin from '../../images/linkedin.svg'
 import './Footer.scss'
 
 const Footer: FC = () => {
-
   return (
     <footer className={'footer'}>
       <img src={logo} alt="footer__logo"/>

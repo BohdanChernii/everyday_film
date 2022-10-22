@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from "react-router";
+
+import {useNavigate} from "react-router";
 
 import {genresAction} from "../../redux";
+
 import {Rating} from "react-simple-star-rating";
 
-import './Details.scss'
 import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
+
 import {IGenre, IMovie} from "../../interfaces";
+
+import './Details.scss'
 
 const Details = () => {
   const [genres, setGenres] = useState<IGenre[]>([])
   const {state} = useAppLocation<IMovie>()
   const dispatch = useAppDispatch()
 
-  // const {genres} = useAppSelector(state => state.genresReducer.genres)
   const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
