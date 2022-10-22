@@ -8,9 +8,10 @@ import {genresAction} from "../../redux";
 
 import {IGenre, IMovie} from "../../interfaces";
 
-import {useAppDispatch} from "../../hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 import './Movie.scss'
+import {genresService} from "../../service";
 
 type IProps = {
   movie: IMovie
@@ -18,18 +19,17 @@ type IProps = {
 
 const Movie: FC<IProps> = ({movie}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
-  const [genres, setGenres] = useState<IGenre[]>([])
+  const {genres} = useAppSelector(state=> state.genresReducer)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    // @ts-ignore
-    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
-  }, [])
+    dispatch(genresAction.getGenres())
+  }, [dispatch])
 
   const badge = genres.filter(genre => genre_ids.includes(genre.id)).map(item => item.name)
   const navigate = useNavigate()
   badge.length = 2
-
   return (
     <div className={'movie'}>
 

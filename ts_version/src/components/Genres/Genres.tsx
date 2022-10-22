@@ -13,17 +13,15 @@ import {IGenre} from "../../interfaces";
 import './Genres.scss'
 
 const Genres = () => {
-  const [genres, setGenres] = useState<IGenre[]>([])
   const [collapse, setCollapse] = useState(false)
-  const {genre} = useAppSelector(state => state.genresReducer)
+  const {genre,genres} = useAppSelector(state => state.genresReducer)
 
   const dispatch = useAppDispatch()
   const {color} = useAppSelector(state => state.themeReducer)
 
   useEffect(() => {
-    // @ts-ignore
-    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
-  }, [])
+    dispatch(genresAction.getGenres())
+  }, [dispatch])
 
   return (
 

@@ -13,10 +13,10 @@ import {IGenre, IMovie} from "../../interfaces";
 import './Details.scss'
 
 const Details = () => {
-  const [genres, setGenres] = useState<IGenre[]>([])
+
   const {state} = useAppLocation<IMovie>()
   const dispatch = useAppDispatch()
-
+  const {genres} = useAppSelector(state => state.genresReducer)
   const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
@@ -24,10 +24,9 @@ const Details = () => {
   } = state
 
   useEffect(() => {
-    // @ts-ignore
-    dispatch(genresAction.getGenres()).then(({payload}) => setGenres(payload.genres))
-  }, [])
-  console.log(genres);
+    dispatch(genresAction.getGenres())
+  }, [dispatch])
+
   const movieGenres = genres.filter((genre: IGenre) => genre_ids.includes(genre.id))
 
   const navigate = useNavigate()

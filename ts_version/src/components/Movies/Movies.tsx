@@ -13,41 +13,36 @@ import {useAppDispatch, useAppSelector} from "../../hooks";
 import {Pagination} from "../Pagination/Pagination";
 
 const Movies: FC = () => {
-  const [movies, setMovies] = useState<IMovie[]>([])
+  // const [movies, setMovies] = useState<IMovie[]>([])
   const {page, loading, filterParam} = useAppSelector(state => state.moviesReducer)
-
+const {movies}=useAppSelector(state=> state.moviesReducer)
   const {genre} = useAppSelector(state => state.genresReducer)
 
   const [searchParams, setSearchParams] = useSearchParams();
   const queryPage = searchParams.get("page")
 
   const dispatch = useAppDispatch()
-
+  console.log(movies);
   useEffect(() => {
     moviesActions.setPage(queryPage)
     dispatch(moviesActions.getMovies({page: queryPage}))
-      // @ts-ignore
-      .then(({payload}) => setMovies(payload.results))
-  }, [page, queryPage])
+
+  }, [dispatch,page, queryPage])
 
   useEffect(() => {
     if (genre) {
-      setMovies(movies.filter(movie => movie.genre_ids.includes(genre.id)))
+      dispatch(moviesActions.filterMoviesByGenres(movies.filter(movie => movie.genre_ids.includes(genre.id))))
     } else {
       dispatch(moviesActions.getMovies({page: queryPage}))
-        // @ts-ignore
-        .then(({payload}) => setMovies(payload.results))
     }
-  }, [genre])
+  }, [dispatch,genre])
 
   useEffect(() => {
-    setMovies(movies.filter(movie => movie.title.includes(filterParam)))
+    dispatch(moviesActions.filterMoviesByName(movies.filter(movie => movie.title.includes(filterParam))))
     if (filterParam === '') {
       dispatch(moviesActions.getMovies({page: queryPage}))
-        // @ts-ignore
-        .then(({payload}) => setMovies(payload.results))
     }
-  }, [filterParam])
+  }, [dispatch, filterParam])
 
   return (
     <>

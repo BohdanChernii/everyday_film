@@ -29,7 +29,7 @@ const getMovies = createAsyncThunk<IMovie[], IGet>(
   async ({page}, {rejectWithValue}) => {
     try {
       const {data} = await moviesService.changePage(page)
-      return data
+      return data.results
     } catch (e) {
       const err = e as AxiosError
       return rejectWithValue(err.response?.data)
@@ -52,6 +52,12 @@ const moviesSlice = createSlice({
     },
     setFilterParam: (state, action) => {
       state.filterParam = action.payload
+    },
+    filterMoviesByGenres:(state, action)=>{
+      state.movies = action.payload
+    },
+    filterMoviesByName:(state,action)=>{
+      state.movies = action.payload
     }
   },
   extraReducers: builder =>
@@ -64,7 +70,7 @@ const moviesSlice = createSlice({
 
 })
 
-const {reducer: moviesReducer, actions: {nextPage, prevPage, setPage, setFilterParam}} = moviesSlice
+const {reducer: moviesReducer, actions: {nextPage,  filterMoviesByName, prevPage, setPage, setFilterParam,filterMoviesByGenres}} = moviesSlice
 
 const moviesActions = {
   nextPage,
@@ -72,5 +78,7 @@ const moviesActions = {
   getMovies,
   setPage,
   setFilterParam,
+  filterMoviesByName,
+  filterMoviesByGenres
 }
 export {moviesActions, moviesSlice, moviesReducer}

@@ -6,17 +6,13 @@ import {IGenre} from "../../interfaces";
 
 
 interface IGenresState<IGenre> {
-  genres: {
-    genres: IGenre[]
-  }
+  genres: IGenre[]
   genre: IGenre | null
   loading: boolean
 }
 
 const initialState: IGenresState<IGenre> = {
-  genres: {
-    genres: [],
-  },
+  genres: [],
   genre: null,
   loading: false,
 }
@@ -28,7 +24,7 @@ const getGenres = createAsyncThunk<IGenre[], void>(
   async (_, {rejectWithValue}) => {
     try {
       const {data} = await genresService.get()
-      return data
+      return data.genres
     } catch (e) {
       const err = e as AxiosError
       return rejectWithValue(err.response?.data)
@@ -48,7 +44,7 @@ const genresSlice = createSlice({
     extraReducers: builder =>
       builder
         .addCase(getGenres.fulfilled, (state, action) => {
-          state.genres.genres = action.payload
+          state.genres = action.payload
           state.loading = false
         })
         .addCase(getGenres.pending, (state) => {
