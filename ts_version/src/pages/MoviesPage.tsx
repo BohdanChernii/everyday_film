@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+
 import {Footer, Genres, Header, Movies} from "../components";
 
 const MoviesPage: FC = () => {
@@ -10,4 +11,4 @@ const MoviesPage: FC = () => {
   );
 };
 
-export  {MoviesPage};
+export {MoviesPage};

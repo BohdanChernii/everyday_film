@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
+
 import {Details} from "../components";
 
-const DetailsPage:FC = () => {
+const DetailsPage: FC = () => {
   return (
     <div>
       <Details/>
