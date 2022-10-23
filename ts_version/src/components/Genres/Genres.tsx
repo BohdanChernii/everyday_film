@@ -8,13 +8,13 @@ import {faXmark} from '@fortawesome/free-solid-svg-icons'
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 
-import {IGenre} from "../../interfaces";
+import {useNavigate} from "react-router";
 
 import './Genres.scss'
 
 const Genres = () => {
   const [collapse, setCollapse] = useState(false)
-  const {genre,genres} = useAppSelector(state => state.genresReducer)
+  const {genre, genres} = useAppSelector(state => state.genresReducer)
 
   const dispatch = useAppDispatch()
   const {color} = useAppSelector(state => state.themeReducer)
@@ -22,6 +22,8 @@ const Genres = () => {
   useEffect(() => {
     dispatch(genresAction.getGenres())
   }, [dispatch])
+
+  const navigate = useNavigate()
 
   return (
 
@@ -45,6 +47,7 @@ const Genres = () => {
             key={genre.id}
             className="genres__container-btn"
             onClick={() => {
+              navigate('/movies?page=1')
               dispatch(genresAction.getGenre(genre))
             }}>
             {genre.name}
@@ -56,6 +59,7 @@ const Genres = () => {
             className="genres__container-btn"
             onClick={() => {
               dispatch(genresAction.getGenre(null))
+              navigate('/')
             }}>Reset
           </button>
         </div>

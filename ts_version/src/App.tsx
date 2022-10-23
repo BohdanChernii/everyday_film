@@ -1,10 +1,14 @@
 import React, {FC} from 'react';
 
-import './App.css';
-import {useAppSelector} from "./hooks";
 import {Navigate, Route, Routes} from "react-router";
-import {MainLayout} from "./layouts/MainLayout";
+
+import {MainLayout} from "./layouts";
+
 import {DetailsPage, MoviesPage} from "./pages";
+
+import {useAppSelector} from "./hooks";
+
+import './App.css';
 
 const App: FC = () => {
   const {background, color} = useAppSelector(state => state.themeReducer)

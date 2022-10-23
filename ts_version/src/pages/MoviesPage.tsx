@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import {Footer, Genres, Header, Movies} from "../components";
+import {Genres, Movies} from "../components";
 
 const MoviesPage: FC = () => {
   return (

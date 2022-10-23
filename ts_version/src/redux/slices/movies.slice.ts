@@ -4,7 +4,7 @@ import {moviesService} from "../../service";
 
 import {AxiosError} from "axios";
 
-import {IMovie} from "../../interfaces";
+import {IGenre, IMovie} from "../../interfaces";
 
 interface IState<IMovie> {
   page: number
@@ -15,6 +15,16 @@ interface IState<IMovie> {
 
 interface IGet {
   page: string | null
+}
+
+interface IGenreFilter {
+  page: number | string | null,
+  genre: number | null,
+}
+
+interface ISearchParamFilter {
+  page: number | string | null,
+  searchParam: string
 }
 
 const initialState: IState<IMovie> = {
@@ -37,6 +47,36 @@ const getMovies = createAsyncThunk<IMovie[], IGet>(
   }
 )
 
+const getByGenres = createAsyncThunk<IMovie[], IGenreFilter>(
+  'moviesSlice/getByGenres',
+  async ({page, genre}, {rejectWithValue}) => {
+    try {
+      if (genre) {
+        const {data} = await moviesService.getByGenres(page, genre)
+        return data.results
+      }
+    } catch (e) {
+      const err = e as AxiosError
+      return rejectWithValue(err.response?.data)
+    }
+  }
+)
+
+
+const getBySearchParam = createAsyncThunk<IMovie[], ISearchParamFilter>(
+  'moviesSlice/getBySearchParams',
+  async ({page, searchParam}, {rejectWithValue}) => {
+    try {
+      const {data} = await moviesService.getBySearchParams(page, searchParam)
+      return data.results
+    } catch (e) {
+      const err = e as AxiosError
+      return rejectWithValue(err.response?.data)
+    }
+  }
+)
+
+
 const moviesSlice = createSlice({
   name: 'moviesSlice',
   initialState,
@@ -53,12 +93,7 @@ const moviesSlice = createSlice({
     setFilterParam: (state, action) => {
       state.filterParam = action.payload
     },
-    filterMoviesByGenres:(state, action)=>{
-      state.movies = action.payload
-    },
-    filterMoviesByName:(state,action)=>{
-      state.movies = action.payload
-    }
+
   },
   extraReducers: builder =>
     builder.addCase(getMovies.fulfilled, (state, action) => {
@@ -66,11 +101,22 @@ const moviesSlice = createSlice({
       state.loading = false
     }).addCase(getMovies.pending, (state, action) => {
       state.loading = true
+    }).addCase(getBySearchParam.fulfilled, (state, action) => {
+      state.movies = action.payload
+    })
+      .addCase(getByGenres.fulfilled, (state, action) => {
+        state.movies = action.payload
+        state.loading = false
+      }).addCase(getByGenres.pending, (state) => {
+      state.loading = true
     })
 
 })
 
-const {reducer: moviesReducer, actions: {nextPage,  filterMoviesByName, prevPage, setPage, setFilterParam,filterMoviesByGenres}} = moviesSlice
+const {
+  reducer: moviesReducer,
+  actions: {nextPage, prevPage, setPage, setFilterParam,}
+} = moviesSlice
 
 const moviesActions = {
   nextPage,
@@ -78,7 +124,7 @@ const moviesActions = {
   getMovies,
   setPage,
   setFilterParam,
-  filterMoviesByName,
-  filterMoviesByGenres
+  getBySearchParam,
+  getByGenres
 }
 export {moviesActions, moviesSlice, moviesReducer}

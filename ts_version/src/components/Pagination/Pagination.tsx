@@ -1,9 +1,12 @@
 import React, {FC} from 'react';
 
-import './Pagination.scss'
 import {useNavigate} from "react-router";
+
 import {moviesActions} from "../../redux";
+
 import {useAppDispatch, useAppSelector} from "../../hooks";
+
+import './Pagination.scss'
 
 interface IProps {
   queryPage: string | null

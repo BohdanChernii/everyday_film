@@ -4,11 +4,12 @@ import {useNavigate} from "react-router";
 
 import {genresAction} from "../../redux";
 
-import {Rating} from "react-simple-star-rating";
-
 import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
 
 import {IGenre, IMovie} from "../../interfaces";
+
+import {Rating, Stack} from "@mui/material";
+import StarIcon from '@mui/icons-material/Star'
 
 import './Details.scss'
 
@@ -38,13 +39,13 @@ const Details = () => {
           <p>Language: {original_language}</p>
           <p>Votes: {vote_count}</p>
           <p>Vote Average: {vote_average}</p>
-          <Rating
-            className={'movie__info-start'}
-            readonly={true}
-            initialValue={Math.round(vote_average)}
-            iconsCount={10}
-            size={20}
-          />
+          <Stack spacing={1}>
+            <Rating
+              emptyIcon={<StarIcon style={{
+                color:'white'
+              }} fontSize="inherit" />}
+              name="half-rating-read"  defaultValue={vote_average} precision={0.1} max={10} size={'small'} readOnly />
+          </Stack>
         </div>
       </div>
       <div className="details__right">

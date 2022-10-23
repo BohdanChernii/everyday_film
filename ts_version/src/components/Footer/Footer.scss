@@ -8,9 +8,10 @@
   background-color: #151419;
   color: #fff;
 
-img{
-  height: 150px;
-}
+  img {
+    height: 150px;
+  }
+
   &__contacts {
     line-height: 40px;
     margin-left: auto;
@@ -30,11 +31,14 @@ img{
 @media screen and (max-width: 530px) {
   .footer {
     height: 100px;
-    img{
+
+    img {
       height: 100px;
     }
+
     &__contacts {
-   text-align: center;
+      text-align: center;
+
       img {
         width: 20px;
         height: 20px;

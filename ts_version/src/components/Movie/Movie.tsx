@@ -1,7 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 
-import {Rating} from 'react-simple-star-rating'
-
 import {useNavigate} from "react-router";
 
 import {genresAction} from "../../redux";
@@ -10,8 +8,11 @@ import {IGenre, IMovie} from "../../interfaces";
 
 import {useAppDispatch, useAppSelector} from "../../hooks";
 
+import {Rating, Stack} from '@mui/material';
+
+import StarIcon from '@mui/icons-material/Star'
+
 import './Movie.scss'
-import {genresService} from "../../service";
 
 type IProps = {
   movie: IMovie
@@ -19,7 +20,7 @@ type IProps = {
 
 const Movie: FC<IProps> = ({movie}) => {
   const {title, genre_ids, release_date, poster_path, vote_average} = movie
-  const {genres} = useAppSelector(state=> state.genresReducer)
+  const {genres} = useAppSelector(state => state.genresReducer)
 
   const dispatch = useAppDispatch()
 
@@ -30,6 +31,7 @@ const Movie: FC<IProps> = ({movie}) => {
   const badge = genres.filter(genre => genre_ids.includes(genre.id)).map(item => item.name)
   const navigate = useNavigate()
   badge.length = 2
+
   return (
     <div className={'movie'}>
 
@@ -49,13 +51,13 @@ const Movie: FC<IProps> = ({movie}) => {
         <h2 className={'movie__info-title'}>{title}</h2>
         <p className={'movie__info-date'}>Release Date: {release_date}</p>
         <p className={'movie__info-rating'}>Rating: {vote_average}</p>
-        <Rating
-          className={'movie__info-star'}
-          readonly={true}
-          initialValue={Math.round(vote_average)}
-          iconsCount={10}
-          size={20}
-        />
+        <Stack spacing={1} className={'movie__info-star'}>
+          <Rating
+            emptyIcon={<StarIcon style={{
+              color: 'white'
+            }} fontSize="inherit"/>}
+            name="half-rating-read" defaultValue={vote_average} precision={0.1} max={10} size={'small'} readOnly/>
+        </Stack>
       </div>
 
     </div>

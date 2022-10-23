@@ -22,11 +22,13 @@
 
   &__info {
     margin-top: 10px;
-font-weight: 800;
+    font-weight: 800;
+
     &-star {
       position: absolute;
       bottom: 0;
       margin-top: 10px;
+      color: #fff;
     }
 
     &-title {

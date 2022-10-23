@@ -2,28 +2,32 @@
   padding: 0 8%;
   margin-bottom: 40px;
 
-  &__title{
+  &__title {
     margin-bottom: 40px;
     display: flex;
     align-items: center;
 
-    &-btn{
+    &-btn {
       font-size: 25px;
       margin-left: auto;
     }
-    .show{
+
+    .show {
       transition: 0.6s;
       transform: rotate(-45deg);
     }
-    .close{
+
+    .close {
       transition: 0.6s;
 
     }
   }
+
   &__container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+
     &-btn {
       font-size: 20px;
       margin: auto;
@@ -32,11 +36,13 @@
       border: none;
       cursor: pointer;
     }
-    &-reset{
+
+    &-reset {
       width: 100%;
       display: flex;
       justify-content: center;
-      button{
+
+      button {
         width: 25%;
         font-size: 30px;
       }
