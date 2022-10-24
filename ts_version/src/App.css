@@ -6,7 +6,9 @@ html{
 .App {
     background-color: #18171B;
 }
-
+.page{
+    position: relative;
+}
 .App-logo {
     height: 40vmin;
     pointer-events: none;

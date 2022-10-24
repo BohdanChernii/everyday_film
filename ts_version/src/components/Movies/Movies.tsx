@@ -54,6 +54,7 @@ const Movies: FC = () => {
         </div>
       }
       <Pagination queryPage={queryPage}/>
+      <a href="#" target="_top" className={'moveUp'}>Move Up</a>
     </>
   );
 };
