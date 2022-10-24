@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {genresAction} from "../../redux";
+import {genresAction, moviesActions} from "../../redux";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
@@ -59,6 +59,7 @@ const Genres = () => {
             className="genres__container-btn"
             onClick={() => {
               dispatch(genresAction.getGenre(null))
+              dispatch(moviesActions.setPage(1))
               navigate('/')
             }}>Reset
           </button>

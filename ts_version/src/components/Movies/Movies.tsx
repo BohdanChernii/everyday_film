@@ -39,11 +39,12 @@ const Movies: FC = () => {
 
   return (
     <>
-      {loading && <div className={'loader'}></div>}
-      <div className={'movies'}>
+      {loading
+        ? (<div className={'loader'}></div>)
+        : (<div className={'movies'}>
         {movies.map(movie => (<Movie
           key={movie.id} movie={movie}/>))}
-      </div>
+      </div>)}
       {filterParam !== '' &&
         <div className={'movies__reset'}>
           <button

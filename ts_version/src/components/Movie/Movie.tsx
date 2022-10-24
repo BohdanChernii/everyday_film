@@ -56,7 +56,7 @@ const Movie: FC<IProps> = ({movie}) => {
             emptyIcon={<StarIcon style={{
               color: 'white'
             }} fontSize="inherit"/>}
-            name="half-rating-read" defaultValue={vote_average} precision={0.1} max={10} size={'small'} readOnly/>
+            name="half-rating-read" defaultValue={vote_average} precision={0.1} max={10} size={'large'} readOnly/>
         </Stack>
       </div>
 

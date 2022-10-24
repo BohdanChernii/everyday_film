@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useNavigate} from "react-router";
 
-import {genresAction} from "../../redux";
+import {genresAction, moviesActions} from "../../redux";
 
 import {useAppDispatch, useAppLocation, useAppSelector} from "../../hooks";
 
@@ -17,7 +17,7 @@ const Details = () => {
 
   const {state} = useAppLocation<IMovie>()
   const dispatch = useAppDispatch()
-  const {genres} = useAppSelector(state => state.genresReducer)
+  const {genres,genre} = useAppSelector(state => state.genresReducer)
   const {page} = useAppSelector(state => state.moviesReducer)
 
   const {
@@ -44,7 +44,7 @@ const Details = () => {
               emptyIcon={<StarIcon style={{
                 color:'white'
               }} fontSize="inherit" />}
-              name="half-rating-read"  defaultValue={vote_average} precision={0.1} max={10} size={'small'} readOnly />
+              name="half-rating-read"  defaultValue={vote_average} precision={0.1} max={10} size={'large'} readOnly />
           </Stack>
         </div>
       </div>
@@ -57,7 +57,14 @@ const Details = () => {
         </div>
         <button
           className={'details__right-back'}
-          onClick={() => navigate(`/movies/?page=${page}`)}>
+          onClick={() => {
+            navigate(`/movies/?page=${page}`)
+
+            if (genre !== null) {
+              dispatch(moviesActions.getByGenres({page: page, genre: genre.id}))
+            }
+          }
+        }>
           Back
         </button>
         <p className="details__right-popularity">Saw: {popularity}</p>
